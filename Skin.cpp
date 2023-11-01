@@ -137,7 +137,7 @@ bool Skin::Load(PluginId id, ISmmAPI* ismm, char* error, size_t maxlen, bool lat
 
 	ConVar_Register(FCVAR_GAMEDLL);
 
-	g_WeaponsMap = { {526,"weapon_knife_kukri"},{508,"weapon_knife_m9_bayonet"},{500,"weapon_bayonet"},{514,"weapon_knife_survival_bowie"},{515,"weapon_knife_butterfly"},{512,"weapon_knife_falchion"},{505,"weapon_knife_flip"},{506,"weapon_knife_gut"},{509,"weapon_knife_tactical"},{516,"weapon_knife_push"},{520,"weapon_knife_gypsy_jackknife"},{522,"weapon_knife_stiletto"},{523,"weapon_knife_widowmaker"},{519,"weapon_knife_ursus"},{503,"weapon_knife_css"},{517,"weapon_knife_cord"},{518,"weapon_knife_canis"},{521,"weapon_knife_outdoor"},{525,"weapon_knife_skeleton"},{507,"weapon_knife_karambit"},{26,"weapon_bizon"},{27,"weapon_mac10"},{34,"weapon_mp9"},{19,"weapon_p90"},{24,"weapon_ump45"},{7,"weapon_ak47"},{8,"weapon_aug"},{9,"weapon_awp"},{11,"weapon_g3sg1"},{10,"weapon_famas"},{13,"weapon_galilar"},{16,"weapon_m4a1"},{60,"weapon_m4a1_silencer"},{39,"weapon_sg556"},{38,"weapon_scar20"},{40,"weapon_ssg08"},{29,"weapon_mag7"},{35,"weapon_nova"},{29,"weapon_sawedoff"},{25,"weapon_xm1014"},{14,"weapon_m249"},{28,"weapon_negev"},{1,"weapon_deagle"},{2,"weapon_elite"},{3,"weapon_fiveseven"},{4,"weapon_glock"},{32,"weapon_hkp2000"},{36,"weapon_p250"},{30,"weapon_tec9"},{61,"weapon_usp_silencer"},{63,"weapon_cz75a"},{64,"weapon_revolver"}};
+	g_WeaponsMap = { {1,"weapon_deagle"},{2,"weapon_elite"},{3,"weapon_fiveseven"},{4,"weapon_glock"},{7,"weapon_ak47"},{8,"weapon_aug"},{9,"weapon_awp"},{10,"weapon_famas"},{11,"weapon_g3sg1"},{13,"weapon_galilar"},{14,"weapon_m249"},{16,"weapon_m4a1"},{17,"weapon_mac10"},{19,"weapon_p90"},{23,"weapon_mp5sd"},{24,"weapon_ump45"},{25,"weapon_xm1014"},{26,"weapon_bizon"},{27,"weapon_mag7"},{28,"weapon_negev"},{29,"weapon_sawedoff"},{30,"weapon_tec9"},{31,"weapon_taser"},{32,"weapon_hkp2000"},{33,"weapon_mp7"},{34,"weapon_mp9"},{35,"weapon_nova"},{36,"weapon_p250"},{37,"weapon_shield"},{38,"weapon_scar20"},{39,"weapon_sg556"},{40,"weapon_ssg08"},{42,"weapon_knife"},{59,"weapon_knife_t"},{60,"weapon_m4a1_silencer"},{61,"weapon_usp_silencer"},{63,"weapon_cz75a"},{64,"weapon_revolver"},{500,"weapon_bayonet"},{503,"weapon_knife_css"},{505,"weapon_knife_flip"},{506,"weapon_knife_gut"},{507,"weapon_knife_karambit"},{508,"weapon_knife_m9_bayonet"},{509,"weapon_knife_tactical"},{512,"weapon_knife_falchion"},{514,"weapon_knife_survival_bowie"},{515,"weapon_knife_butterfly"},{516,"weapon_knife_push"},{517,"weapon_knife_cord"},{518,"weapon_knife_canis"},{519,"weapon_knife_ursus"},{520,"weapon_knife_gypsy_jackknife"},{521,"weapon_knife_outdoor"},{522,"weapon_knife_stiletto"},{523,"weapon_knife_widowmaker"},{525,"weapon_knife_skeleton"},{526,"weapon_knife_kukri"}};
 	#ifdef _WIN32	
 	byte* vscript = (byte*)FindSignature("vscript.dll", "\xBE\x01\x3F\x3F\x3F\x2B\xD6\x74\x61\x3B\xD6");
 	if(vscript)
@@ -334,10 +334,10 @@ CON_COMMAND_F(knife, "给玩家发刀", FCVAR_CLIENT_CAN_EXECUTE)
 		sprintf(buf, "-------------------------------------------------");
 		FnUTIL_ClientPrint(pPlayerController, 3, buf, nullptr, nullptr, nullptr, nullptr);
 
-		sprintf(buf, " \x0E [皮肤系统] \x01 请输入命令 \x06knife <name> \x01到控制台!");
+		sprintf(buf, " \x0E [皮肤系统] \x01 请输入命令 \x06knife <id> \x01到控制台!");
 		FnUTIL_ClientPrint(pPlayerController, 3, buf, nullptr, nullptr, nullptr, nullptr);
 
-		sprintf(buf, " \x0E [皮肤系统] \x01 可使用的刀名字包括 \x06\x06karambit(爪子刀), bayonet(刺刀), css(海豹短刀), m9, bowie(鲍伊猎刀), butterfly(蝴蝶刀), flip(折叠刀), push(暗影双匕), tactical(猎杀者匕首), falchion(弯刀), gut(穿肠刀), ursus(熊刀), navaja(折刀), stiletto(短剑), talon(锯齿爪刀), paracord(系绳匕首), survival(求生匕首), nomad(流浪者匕首), skeleton(骷髅匕首) !");
+		sprintf(buf, " \x0E [皮肤系统] \x01 可使用的刀id包括 \x06 500=刺刀 503=海豹短刀 505=折叠刀 506=穿肠刀 507=爪子刀 508=M9 刺刀 509=猎杀者匕首 512=弯刀 514=鲍伊猎刀 515=蝴蝶刀 516=暗影双匕 517=系绳匕首 518=求生匕首 519=熊刀 520=折刀 521=流浪者匕首 522=短剑 523=锯齿爪刀 525=骷髅匕首");
 		FnUTIL_ClientPrint(pPlayerController, 3, buf, nullptr, nullptr, nullptr, nullptr);
 
 		sprintf(buf, " \x0E [皮肤系统] \x01 如有其他问题请加QQ群询问: \x06 314498023!");
@@ -366,94 +366,94 @@ CON_COMMAND_F(knife, "给玩家发刀", FCVAR_CLIENT_CAN_EXECUTE)
 	}
 
     // Give the player the knife
-    if (strcmp(args.Arg(1), "m9") == 0)
-    {
-        FnGiveNamedItem(pPlayerPawn->m_pItemServices(), "weapon_knife_m9_bayonet", nullptr, nullptr, nullptr, nullptr);
-    }
-    else if (strcmp(args.Arg(1), "karambit") == 0)
-    {
-        FnGiveNamedItem(pPlayerPawn->m_pItemServices(), "weapon_knife_karambit", nullptr, nullptr, nullptr, nullptr);
-    }
-	else if (strcmp(args.Arg(1), "bayonet") == 0)
+    if (strcmp(args.Arg(1), "500") == 0)
     {
         FnGiveNamedItem(pPlayerPawn->m_pItemServices(), "weapon_bayonet", nullptr, nullptr, nullptr, nullptr);
     }
-	else if (strcmp(args.Arg(1), "bowie") == 0)
-    {
-        FnGiveNamedItem(pPlayerPawn->m_pItemServices(), "weapon_knife_survival_bowie", nullptr, nullptr, nullptr, nullptr);
-    }
-	else if (strcmp(args.Arg(1), "butterfly") == 0)
-    {
-        FnGiveNamedItem(pPlayerPawn->m_pItemServices(), "weapon_knife_butterfly", nullptr, nullptr, nullptr, nullptr);
-    }
-	else if (strcmp(args.Arg(1), "falchion") == 0)
-    {
-        FnGiveNamedItem(pPlayerPawn->m_pItemServices(), "weapon_knife_falchion", nullptr, nullptr, nullptr, nullptr);
-    }
-	else if (strcmp(args.Arg(1), "flip") == 0)
-    {
-        FnGiveNamedItem(pPlayerPawn->m_pItemServices(), "weapon_knife_flip", nullptr, nullptr, nullptr, nullptr);
-    }
-	else if (strcmp(args.Arg(1), "gut") == 0)
-    {
-        FnGiveNamedItem(pPlayerPawn->m_pItemServices(), "weapon_knife_gut", nullptr, nullptr, nullptr, nullptr);
-    }
-	else if (strcmp(args.Arg(1), "tactical") == 0)
-    {
-        FnGiveNamedItem(pPlayerPawn->m_pItemServices(), "weapon_knife_tactical", nullptr, nullptr, nullptr, nullptr);
-    }
-	else if (strcmp(args.Arg(1), "shadow") == 0)
-    {
-        FnGiveNamedItem(pPlayerPawn->m_pItemServices(), "weapon_knife_push", nullptr, nullptr, nullptr, nullptr);
-    }
-	else if (strcmp(args.Arg(1), "navaja") == 0)
-    {
-        FnGiveNamedItem(pPlayerPawn->m_pItemServices(), "weapon_knife_gypsy_jackknife", nullptr, nullptr, nullptr, nullptr);
-    }
-	else if (strcmp(args.Arg(1), "stiletto") == 0)
-    {
-        FnGiveNamedItem(pPlayerPawn->m_pItemServices(), "weapon_knife_stiletto", nullptr, nullptr, nullptr, nullptr);
-    }
-	else if (strcmp(args.Arg(1), "talon") == 0)
-    {
-        FnGiveNamedItem(pPlayerPawn->m_pItemServices(), "weapon_knife_widowmaker", nullptr, nullptr, nullptr, nullptr);
-    }
-	else if (strcmp(args.Arg(1), "ursus") == 0)
-    {
-        FnGiveNamedItem(pPlayerPawn->m_pItemServices(), "weapon_knife_ursus", nullptr, nullptr, nullptr, nullptr);
-    }
-	else if (strcmp(args.Arg(1), "css") == 0)
+	else if (strcmp(args.Arg(1), "503") == 0)
     {
         FnGiveNamedItem(pPlayerPawn->m_pItemServices(), "weapon_knife_css", nullptr, nullptr, nullptr, nullptr);
     }
-	else if (strcmp(args.Arg(1), "paracord") == 0)
+	else if (strcmp(args.Arg(1), "505") == 0)
+    {
+        FnGiveNamedItem(pPlayerPawn->m_pItemServices(), "weapon_knife_flip", nullptr, nullptr, nullptr, nullptr);
+    }
+	else if (strcmp(args.Arg(1), "506") == 0)
+    {
+        FnGiveNamedItem(pPlayerPawn->m_pItemServices(), "weapon_knife_gut", nullptr, nullptr, nullptr, nullptr);
+    }
+	else if (strcmp(args.Arg(1), "507") == 0)
+    {
+        FnGiveNamedItem(pPlayerPawn->m_pItemServices(), "weapon_knife_karambit", nullptr, nullptr, nullptr, nullptr);
+    }
+	else if (strcmp(args.Arg(1), "508") == 0)
+    {
+        FnGiveNamedItem(pPlayerPawn->m_pItemServices(), "weapon_knife_m9_bayonet", nullptr, nullptr, nullptr, nullptr);
+    }
+    	else if (strcmp(args.Arg(1), "509") == 0)
+    {
+        FnGiveNamedItem(pPlayerPawn->m_pItemServices(), "weapon_knife_tactical", nullptr, nullptr, nullptr, nullptr);
+    }
+	else if (strcmp(args.Arg(1), "512") == 0)
+    {
+        FnGiveNamedItem(pPlayerPawn->m_pItemServices(), "weapon_knife_falchion", nullptr, nullptr, nullptr, nullptr);
+    }
+	else if (strcmp(args.Arg(1), "514") == 0)
+    {
+        FnGiveNamedItem(pPlayerPawn->m_pItemServices(), "weapon_knife_survival_bowie", nullptr, nullptr, nullptr, nullptr);
+    }
+	else if (strcmp(args.Arg(1), "515") == 0)
+    {
+        FnGiveNamedItem(pPlayerPawn->m_pItemServices(), "weapon_knife_butterfly", nullptr, nullptr, nullptr, nullptr);
+    }
+	else if (strcmp(args.Arg(1), "516") == 0)
+    {
+        FnGiveNamedItem(pPlayerPawn->m_pItemServices(), "weapon_knife_push", nullptr, nullptr, nullptr, nullptr);
+    }
+	else if (strcmp(args.Arg(1), "517") == 0)
     {
         FnGiveNamedItem(pPlayerPawn->m_pItemServices(), "weapon_knife_cord", nullptr, nullptr, nullptr, nullptr);
     }
-	else if (strcmp(args.Arg(1), "survival") == 0)
+	else if (strcmp(args.Arg(1), "518") == 0)
     {
         FnGiveNamedItem(pPlayerPawn->m_pItemServices(), "weapon_knife_canis", nullptr, nullptr, nullptr, nullptr);
     }
-	else if (strcmp(args.Arg(1), "nomad") == 0)
+	else if (strcmp(args.Arg(1), "519") == 0)
+    {
+        FnGiveNamedItem(pPlayerPawn->m_pItemServices(), "weapon_knife_ursus", nullptr, nullptr, nullptr, nullptr);
+    }
+	else if (strcmp(args.Arg(1), "520") == 0)
+    {
+        FnGiveNamedItem(pPlayerPawn->m_pItemServices(), "weapon_knife_gypsy_jackknife", nullptr, nullptr, nullptr, nullptr);
+    }
+	else if (strcmp(args.Arg(1), "521") == 0)
     {
         FnGiveNamedItem(pPlayerPawn->m_pItemServices(), "weapon_knife_outdoor", nullptr, nullptr, nullptr, nullptr);
     }
-	else if (strcmp(args.Arg(1), "skeleton") == 0)
+	else if (strcmp(args.Arg(1), "522") == 0)
+    {
+        FnGiveNamedItem(pPlayerPawn->m_pItemServices(), "weapon_knife_stiletto", nullptr, nullptr, nullptr, nullptr);
+    }
+	else if (strcmp(args.Arg(1), "523") == 0)
+    {
+        FnGiveNamedItem(pPlayerPawn->m_pItemServices(), "weapon_knife_widowmaker", nullptr, nullptr, nullptr, nullptr);
+    }
+	else if (strcmp(args.Arg(1), "525") == 0)
     {
         FnGiveNamedItem(pPlayerPawn->m_pItemServices(), "weapon_knife_skeleton", nullptr, nullptr, nullptr, nullptr);
     }
-	else if (strcmp(args.Arg(1), "kukri") == 0)
+	else if (strcmp(args.Arg(1), "526") == 0)
     {
         FnGiveNamedItem(pPlayerPawn->m_pItemServices(), "weapon_knife_kukri", nullptr, nullptr, nullptr, nullptr);
     }
     else
     {
-        sprintf(buf, " \x0E [皮肤系统] \x04 %s 刀名称无效!", pPlayerController->m_iszPlayerName());
+        sprintf(buf, " \x0E [皮肤系统] \x04 %s 你输入的刀id无效!", pPlayerController->m_iszPlayerName());
         FnUTIL_ClientPrint(pPlayerController, 3, buf, nullptr, nullptr, nullptr, nullptr);
         return;
     }
 
-    sprintf(buf, " \x0E [皮肤系统] \x01 发刀成功 %s !", args.Arg(1));
+    sprintf(buf, " \x0E [皮肤系统] \x01 先切换至刀再输入命令! 发刀成功 %s !", args.Arg(1));
     FnUTIL_ClientPrint(pPlayerController, 3, buf, nullptr, nullptr, nullptr, nullptr);
 }
 
