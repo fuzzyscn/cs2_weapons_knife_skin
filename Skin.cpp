@@ -368,10 +368,10 @@ CON_COMMAND_F(knife, "给玩家发刀", FCVAR_CLIENT_CAN_EXECUTE)
 	if (pCurrentWeapon && strstr(pCurrentWeapon->GetClassname(), "weapon_knife") != nullptr)
 	{
 		// Remove the player's current knife
-		pWeaponServices->RemoveWeapon(pCurrentWeapon);
+		// pWeaponServices->RemoveWeapon(pCurrentWeapon);
 
 		// Delete the knife entity
-		FnEntityRemove(g_pGameEntitySystem, pCurrentWeapon, nullptr, -1);
+		// FnEntityRemove(g_pGameEntitySystem, pCurrentWeapon, nullptr, -1);
 	}
 
     // Give the player the knife
