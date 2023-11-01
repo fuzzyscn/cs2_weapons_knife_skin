@@ -247,30 +247,23 @@ void CEntityListener::OnEntitySpawned(CEntityInstance* pEntity)
 {
 	CBasePlayerWeapon* pBasePlayerWeapon = dynamic_cast<CBasePlayerWeapon*>(pEntity);
 	if(!pBasePlayerWeapon)return;
-    
-    CGameSceneNode* pWeaponSceneNode = pBasePlayerWeapon->m_pGameSceneNode();
-    if (!pWeaponSceneNode) continue;
-    
+	
 	g_Skin.NextFrame([pBasePlayerWeapon = pBasePlayerWeapon]()
 	{
 		int64_t steamid = pBasePlayerWeapon->m_OriginalOwnerXuidLow();
 		if(!steamid)return;
 		int64_t weaponId = pBasePlayerWeapon->m_AttributeManager().m_Item().m_iItemDefinitionIndex();
-        int64_t skinMeshGroupMask = 2;
 
 		auto weapon = g_PlayerSkins.find(steamid);
 		if(weapon == g_PlayerSkins.end())return;
 		auto skin_parm = weapon->second.find(weaponId);
 		if(skin_parm == weapon->second.end())return;
-
+		
 		pBasePlayerWeapon->m_AttributeManager().m_Item().m_iItemIDHigh() = -1;
 		
 		pBasePlayerWeapon->m_nFallbackPaintKit() = skin_parm->second.m_nFallbackPaintKit;
 		pBasePlayerWeapon->m_nFallbackSeed() = skin_parm->second.m_nFallbackSeed;
 		pBasePlayerWeapon->m_flFallbackWear() = skin_parm->second.m_flFallbackWear;
-        
-        pWeaponSceneNode->FnSetMeshGroupMask(skinMeshGroupMask);
-        
 		META_CONPRINTF( "--------Fuzzys Skin System: steamId: %lld itemId: %d\n", steamid, weaponId);
 	});
 }
@@ -328,15 +321,8 @@ CON_COMMAND_F(skin, "修改武器皮肤", FCVAR_CLIENT_CAN_EXECUTE)
     FnEntityRemove(g_pGameEntitySystem, pPlayerWeapon, nullptr, -1);
     FnGiveNamedItem(pPlayerPawn->m_pItemServices(), weapon_name->second.c_str(), nullptr, nullptr, nullptr, nullptr);
     pPlayerWeapon->m_AttributeManager().m_Item().m_iAccountID() = 271098320;
-    
     int64_t skinMeshGroupMask = 2;
-    CPlayer_ViewModelServices* pViewmodelServices = pPlayerPawn->m_pViewModelServices();
-    if (!pViewmodelServices) return;
-    CBaseEntity* pViewmodel = pViewmodelServices->m_hViewModel()[0].Get();
-    if (!pViewmodel) return;
-    CGameSceneNode* pViewmodelSceneNode = pViewmodel->m_pGameSceneNode();
-    if (!pViewmodelSceneNode)return;    
-    pViewmodelSceneNode->FnSetMeshGroupMask(skinMeshGroupMask);
+    FnSetMeshGroupMask(skinMeshGroupMask);
     
     META_CONPRINTF("--------Fuzzys Skin System: Skin called by %lld\n", steamid);
     sprintf(buf, " \x0E [皮肤系统] \x04 更换成功! 当前武器皮肤编号:%d 模板:%d 磨损:%f", g_PlayerSkins[steamid][weaponId].m_nFallbackPaintKit, g_PlayerSkins[steamid][weaponId].m_nFallbackSeed, g_PlayerSkins[steamid][weaponId].m_flFallbackWear);
