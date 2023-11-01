@@ -42,8 +42,8 @@ typedef struct SkinParm
 }SkinParm;;
 
 #ifdef _WIN32
-typedef void*(FASTCALL* EntityRemove_t)(CGameEntitySystem*, void*, void*,uint64_t);
-typedef void*(FASTCALL* SetMeshGroupMask_t)(int mask_id);
+typedef void*(FASTCALL* EntityRemove_t)(CGameEntitySystem*, void*, void*, uint64_t);
+typedef void*(FASTCALL* SetMeshGroupMask_t)(uint64_t mask_id);
 typedef void(FASTCALL* GiveNamedItem_t)(void* itemService,const char* pchName, void* iSubType,void* pScriptItem, void* a5,void* a6);
 typedef void(FASTCALL* UTIL_ClientPrintAll_t)(int msg_dest, const char* msg_name, const char* param1, const char* param2, const char* param3, const char* param4);
 typedef void(FASTCALL *ClientPrint_t)(CBasePlayerController *player, int msg_dest, const char *msg_name, const char *param1, const char *param2, const char *param3, const char *param4);
@@ -59,8 +59,8 @@ GiveNamedItem_t FnGiveNamedItem;
 UTIL_ClientPrintAll_t FnUTIL_ClientPrintAll;
 ClientPrint_t FnUTIL_ClientPrint;
 #else
-void (*FnEntityRemove)(CGameEntitySystem*, void*, void*,uint64_t) = nullptr;
-void (*FnSetMeshGroupMask)(int mask_id) = nullptr;
+void (*FnEntityRemove)(CGameEntitySystem*, void*, void*, uint64_t) = nullptr;
+void (*FnSetMeshGroupMask)(uint64_t mask_id) = nullptr;
 void (*FnGiveNamedItem)(void* itemService,const char* pchName, void* iSubType,void* pScriptItem, void* a5,void* a6) = nullptr;
 void (*FnUTIL_ClientPrintAll)(int msg_dest, const char* msg_name, const char* param1, const char* param2, const char* param3, const char* param4) = nullptr;
 void(*FnUTIL_ClientPrint)(CBasePlayerController *player, int msg_dest, const char *msg_name, const char *param1, const char *param2, const char *param3, const char *param4);
@@ -247,22 +247,30 @@ void CEntityListener::OnEntitySpawned(CEntityInstance* pEntity)
 {
 	CBasePlayerWeapon* pBasePlayerWeapon = dynamic_cast<CBasePlayerWeapon*>(pEntity);
 	if(!pBasePlayerWeapon)return;
+    
+    CGameSceneNode* pWeaponSceneNode = pBasePlayerWeapon->m_pGameSceneNode();
+    if (!pWeaponSceneNode) continue;
+    
 	g_Skin.NextFrame([pBasePlayerWeapon = pBasePlayerWeapon]()
 	{
 		int64_t steamid = pBasePlayerWeapon->m_OriginalOwnerXuidLow();
 		if(!steamid)return;
 		int64_t weaponId = pBasePlayerWeapon->m_AttributeManager().m_Item().m_iItemDefinitionIndex();
+        int64_t skinMeshGroupMask = 2;
 
 		auto weapon = g_PlayerSkins.find(steamid);
 		if(weapon == g_PlayerSkins.end())return;
 		auto skin_parm = weapon->second.find(weaponId);
 		if(skin_parm == weapon->second.end())return;
+
+		pBasePlayerWeapon->m_AttributeManager().m_Item().m_iItemIDHigh() = -1;
 		
 		pBasePlayerWeapon->m_nFallbackPaintKit() = skin_parm->second.m_nFallbackPaintKit;
 		pBasePlayerWeapon->m_nFallbackSeed() = skin_parm->second.m_nFallbackSeed;
 		pBasePlayerWeapon->m_flFallbackWear() = skin_parm->second.m_flFallbackWear;
-
-		pBasePlayerWeapon->m_AttributeManager().m_Item().m_iItemIDHigh() = -1;
+        
+        pWeaponSceneNode->FnSetMeshGroupMask(skinMeshGroupMask);
+        
 		META_CONPRINTF( "--------Fuzzys Skin System: steamId: %lld itemId: %d\n", steamid, weaponId);
 	});
 }
@@ -315,12 +323,21 @@ CON_COMMAND_F(skin, "修改武器皮肤", FCVAR_CLIENT_CAN_EXECUTE)
     }
 
     CBasePlayerWeapon* pPlayerWeapon = pWeaponServices->m_hActiveWeapon();
-
+    
     pWeaponServices->RemoveWeapon(pPlayerWeapon);
     FnEntityRemove(g_pGameEntitySystem, pPlayerWeapon, nullptr, -1);
     FnGiveNamedItem(pPlayerPawn->m_pItemServices(), weapon_name->second.c_str(), nullptr, nullptr, nullptr, nullptr);
     pPlayerWeapon->m_AttributeManager().m_Item().m_iAccountID() = 271098320;
-
+    
+    int64_t skinMeshGroupMask = 2;
+    CPlayer_ViewModelServices* pViewmodelServices = pPlayerPawn->m_pViewModelServices();
+    if (!pViewmodelServices) return;
+    CBaseEntity* pViewmodel = pViewmodelServices->m_hViewModel()[0].Get();
+    if (!pViewmodel) return;
+    CGameSceneNode* pViewmodelSceneNode = pViewmodel->m_pGameSceneNode();
+    if (!pViewmodelSceneNode)return;    
+    pViewmodelSceneNode->FnSetMeshGroupMask(skinMeshGroupMask);
+    
     META_CONPRINTF("--------Fuzzys Skin System: Skin called by %lld\n", steamid);
     sprintf(buf, " \x0E [皮肤系统] \x04 更换成功! 当前武器皮肤编号:%d 模板:%d 磨损:%f", g_PlayerSkins[steamid][weaponId].m_nFallbackPaintKit, g_PlayerSkins[steamid][weaponId].m_nFallbackSeed, g_PlayerSkins[steamid][weaponId].m_flFallbackWear);
     FnUTIL_ClientPrint(pPlayerController, 3, buf, nullptr, nullptr, nullptr, nullptr);
