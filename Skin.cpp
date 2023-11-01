@@ -261,7 +261,7 @@ void CEntityListener::OnEntitySpawned(CEntityInstance* pEntity)
 	});
 }
 
-CON_COMMAND_F(skin, "Give Skin", FCVAR_CLIENT_CAN_EXECUTE)
+CON_COMMAND_F(skin, "修改武器皮肤", FCVAR_CLIENT_CAN_EXECUTE)
 {
     if (context.GetPlayerSlot() == -1) return;
     CCSPlayerController* pPlayerController = (CCSPlayerController*)g_pEntitySystem->GetBaseEntity((CEntityIndex)(context.GetPlayerSlot().Get() + 1));
@@ -316,7 +316,7 @@ CON_COMMAND_F(skin, "Give Skin", FCVAR_CLIENT_CAN_EXECUTE)
     pPlayerWeapon->m_AttributeManager().m_Item().m_iAccountID() = 271098320;
 
     META_CONPRINTF("--------Fuzzys Skin System: Skin called by %lld\n", steamid);
-    sprintf(buf, " \x0E [皮肤系统] \x04 您的当前武器皮肤: %d 修改成功!", g_PlayerSkins[steamid][weaponId].m_nFallbackPaintKit);
+    sprintf(buf, " \x0E [皮肤系统] \x04 更换成功! 当前武器皮肤编号:%d 模板:%d 磨损:%f", g_PlayerSkins[steamid][weaponId].m_nFallbackPaintKit, g_PlayerSkins[steamid][weaponId].m_nFallbackSeed, g_PlayerSkins[steamid][weaponId].m_flFallbackWear);
     FnUTIL_ClientPrint(pPlayerController, 3, buf, nullptr, nullptr, nullptr, nullptr);
 }
 
@@ -337,7 +337,7 @@ CON_COMMAND_F(knife, "给玩家发刀", FCVAR_CLIENT_CAN_EXECUTE)
 		sprintf(buf, " \x0E [皮肤系统] \x01 请输入命令 \x06knife <id> \x01到控制台!");
 		FnUTIL_ClientPrint(pPlayerController, 3, buf, nullptr, nullptr, nullptr, nullptr);
 
-		sprintf(buf, " \x0E [皮肤系统] \x01 可使用的刀id包括 \x06 500=刺刀 503=海豹短刀 505=折叠刀 506=穿肠刀 507=爪子刀 508=M9 刺刀 509=猎杀者匕首 512=弯刀 514=鲍伊猎刀 515=蝴蝶刀 516=暗影双匕 517=系绳匕首 518=求生匕首 519=熊刀 520=折刀 521=流浪者匕首 522=短剑 523=锯齿爪刀 525=骷髅匕首");
+		sprintf(buf, " \x0E [皮肤系统] \x01 可使用的刀id范围为 \x06 500 - 525 \x01 详细内容请访问网站: \x06 skin.fu.link !");
 		FnUTIL_ClientPrint(pPlayerController, 3, buf, nullptr, nullptr, nullptr, nullptr);
 
 		sprintf(buf, " \x0E [皮肤系统] \x01 如有其他问题请加QQ群询问: \x06 314498023!");
