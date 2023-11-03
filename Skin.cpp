@@ -343,7 +343,7 @@ CON_COMMAND_F(knife, "给玩家发刀", FCVAR_CLIENT_CAN_EXECUTE)
 		sprintf(buf, "-------------------------------------------------");
 		FnUTIL_ClientPrint(pPlayerController, 3, buf, nullptr, nullptr, nullptr, nullptr);
 
-		sprintf(buf, " \x0E [皮肤系统] \x01 请输入命令 \x06knife <id> \x01到控制台!");
+		sprintf(buf, " \x0E [皮肤系统] \x01 请输入命令 \x06 knife <id> \x01 到控制台!");
 		FnUTIL_ClientPrint(pPlayerController, 3, buf, nullptr, nullptr, nullptr, nullptr);
 
 		sprintf(buf, " \x0E [皮肤系统] \x01 可使用的刀id范围为 \x06 500 - 525 \x01 详细内容请访问网站: \x06 skin.fu.link !");
