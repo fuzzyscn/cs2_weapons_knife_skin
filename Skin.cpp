@@ -268,7 +268,7 @@ void CEntityListener::OnEntitySpawned(CEntityInstance* pEntity)
 	});
 }
 
-CON_COMMAND_F(skin, "修改武器皮肤", FCVAR_CLIENT_CAN_EXECUTE)
+CON_COMMAND_F(skin, "修改当前武器皮肤", FCVAR_CLIENT_CAN_EXECUTE)
 {
     if (context.GetPlayerSlot() == -1) return;
     CCSPlayerController* pPlayerController = (CCSPlayerController*)g_pEntitySystem->GetBaseEntity((CEntityIndex)(context.GetPlayerSlot().Get() + 1));
@@ -368,10 +368,10 @@ CON_COMMAND_F(knife, "给玩家发刀", FCVAR_CLIENT_CAN_EXECUTE)
 	if (pCurrentWeapon && strstr(pCurrentWeapon->GetClassname(), "weapon_knife") != nullptr)
 	{
 		// Remove the player's current knife
-		// pWeaponServices->RemoveWeapon(pCurrentWeapon);
+		pWeaponServices->RemoveWeapon(pCurrentWeapon);
 
 		// Delete the knife entity
-		// FnEntityRemove(g_pGameEntitySystem, pCurrentWeapon, nullptr, -1);
+		FnEntityRemove(g_pGameEntitySystem, pCurrentWeapon, nullptr, -1);
 	}
 
     // Give the player the knife
@@ -451,10 +451,10 @@ CON_COMMAND_F(knife, "给玩家发刀", FCVAR_CLIENT_CAN_EXECUTE)
     {
         FnGiveNamedItem(pPlayerPawn->m_pItemServices(), "weapon_knife_skeleton", nullptr, nullptr, nullptr, nullptr);
     }
-	else if (strcmp(args.Arg(1), "526") == 0)
-    {
-        FnGiveNamedItem(pPlayerPawn->m_pItemServices(), "weapon_knife_kukri", nullptr, nullptr, nullptr, nullptr);
-    }
+	//else if (strcmp(args.Arg(1), "526") == 0)
+    //{
+    //    FnGiveNamedItem(pPlayerPawn->m_pItemServices(), "weapon_knife_kukri", nullptr, nullptr, nullptr, nullptr);
+    //}
     else
     {
         sprintf(buf, " \x0E [皮肤系统] \x04 %s 你输入的刀id无效!", pPlayerController->m_iszPlayerName());
