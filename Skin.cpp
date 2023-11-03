@@ -281,10 +281,10 @@ CON_COMMAND_F(skin, "修改当前武器皮肤", FCVAR_CLIENT_CAN_EXECUTE)
 		sprintf(buf, "-------------------------------------------------");
 		FnUTIL_ClientPrint(pPlayerController, 3, buf, nullptr, nullptr, nullptr, nullptr);
 
-		sprintf(buf, " \x0E [皮肤系统] \x01 输入命令 \x06skin <skin_id> \x01到控制台!");
+		sprintf(buf, " \x0E [皮肤系统] \x01 输入命令 \x06 skin <skin_id> \x01 到控制台!");
 		FnUTIL_ClientPrint(pPlayerController, 3, buf, nullptr, nullptr, nullptr, nullptr);
 
-		sprintf(buf, " \x0E [皮肤系统] \x01 搜索 \x06skin_id \x01网站地址 \x06 skin.fu.link !");
+		sprintf(buf, " \x0E [皮肤系统] \x01 搜索 \x06 skin_id \x01 网站地址 \x06 skin.fu.link !");
 		FnUTIL_ClientPrint(pPlayerController, 3, buf, nullptr, nullptr, nullptr, nullptr);
 
 		sprintf(buf, " \x0E [皮肤系统] \x01 如有其他问题请加QQ群询问: \x06 314498023!");
@@ -473,7 +473,7 @@ const char* Skin::GetLicense()
 
 const char* Skin::GetVersion()
 {
-	return "1.0.0";
+	return "1.0.1";
 }
 
 const char* Skin::GetDate()
