@@ -343,13 +343,13 @@ CON_COMMAND_F(knife, "给玩家发刀", FCVAR_CLIENT_CAN_EXECUTE)
 		sprintf(buf, "-------------------------------------------------");
 		FnUTIL_ClientPrint(pPlayerController, 3, buf, nullptr, nullptr, nullptr, nullptr);
 
-		sprintf(buf, " \x0E [皮肤系统] \x01 请输入命令 \x06 knife <id> \x01 到控制台!");
+		sprintf(buf, " \x0E [刷刀系统] \x01 请输入命令 \x06 knife <id> \x01 到控制台!");
 		FnUTIL_ClientPrint(pPlayerController, 3, buf, nullptr, nullptr, nullptr, nullptr);
 
-		sprintf(buf, " \x0E [皮肤系统] \x01 可使用的刀id范围为 \x06 500 - 525 \x01 详细内容请访问网站: \x06 skin.fu.link !");
+		sprintf(buf, " \x0E [刷刀系统] \x01 可使用的刀id范围为 \x06 500 - 525 \x01 详细内容请访问网站: \x06 skin.fu.link !");
 		FnUTIL_ClientPrint(pPlayerController, 3, buf, nullptr, nullptr, nullptr, nullptr);
 
-		sprintf(buf, " \x0E [皮肤系统] \x01 如有其他问题请加QQ群询问: \x06 314498023!");
+		sprintf(buf, " \x0E [刷刀系统] \x01 如有其他问题请加QQ群询问: \x06 314498023!");
 		FnUTIL_ClientPrint(pPlayerController, 3, buf, nullptr, nullptr, nullptr, nullptr);
 
 		sprintf(buf, "-------------------------------------------------");
@@ -457,12 +457,12 @@ CON_COMMAND_F(knife, "给玩家发刀", FCVAR_CLIENT_CAN_EXECUTE)
     //}
     else
     {
-        sprintf(buf, " \x0E [皮肤系统] \x04 %s 你输入的刀id无效!", pPlayerController->m_iszPlayerName());
+        sprintf(buf, " \x0E [刷刀系统] \x04 %s 输入的刀id无效!", pPlayerController->m_iszPlayerName());
         FnUTIL_ClientPrint(pPlayerController, 3, buf, nullptr, nullptr, nullptr, nullptr);
         return;
     }
 
-    sprintf(buf, " \x0E [皮肤系统] \x01 先切换至刀再输入命令! 发刀成功 %s !", args.Arg(1));
+    sprintf(buf, " \x0E [刷刀系统] \x01 如刷刀失败请先切换至默认刀再输入knife <id>命令! 当前刷刀id为 %s !", args.Arg(1));
     FnUTIL_ClientPrint(pPlayerController, 3, buf, nullptr, nullptr, nullptr, nullptr);
 }
 
