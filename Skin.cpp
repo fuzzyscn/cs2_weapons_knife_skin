@@ -49,18 +49,18 @@ typedef void(FASTCALL* UTIL_ClientPrintAll_t)(int msg_dest, const char* msg_name
 typedef void(FASTCALL *ClientPrint_t)(CBasePlayerController *player, int msg_dest, const char *msg_name, const char *param1, const char *param2, const char *param3, const char *param4);
 
 extern EntityRemove_t FnEntityRemove;
-extern SetMeshGroupMask_t FnSetMeshGroupMask;
+//extern SetMeshGroupMask_t FnSetMeshGroupMask;
 extern GiveNamedItem_t FnGiveNamedItem;
 extern UTIL_ClientPrintAll_t FnUTIL_ClientPrintAll;
 extern ClientPrint_t FnUTIL_ClientPrint;
 EntityRemove_t FnEntityRemove;
-SetMeshGroupMask_t FnSetMeshGroupMask;
+//SetMeshGroupMask_t FnSetMeshGroupMask;
 GiveNamedItem_t FnGiveNamedItem;
 UTIL_ClientPrintAll_t FnUTIL_ClientPrintAll;
 ClientPrint_t FnUTIL_ClientPrint;
 #else
 void (*FnEntityRemove)(CGameEntitySystem*, void*, void*, uint64_t) = nullptr;
-void (*FnSetMeshGroupMask)(uint64_t mask_id) = nullptr;
+//void (*FnSetMeshGroupMask)(uint64_t mask_id) = nullptr;
 void (*FnGiveNamedItem)(void* itemService,const char* pchName, void* iSubType,void* pScriptItem, void* a5,void* a6) = nullptr;
 void (*FnUTIL_ClientPrintAll)(int msg_dest, const char* msg_name, const char* param1, const char* param2, const char* param3, const char* param4) = nullptr;
 void(*FnUTIL_ClientPrint)(CBasePlayerController *player, int msg_dest, const char *msg_name, const char *param1, const char *param2, const char *param3, const char *param4);
@@ -182,14 +182,14 @@ void Skin::StartupServer(const GameSessionConfiguration_t& config, ISource2World
 	FnUTIL_ClientPrint = (ClientPrint_t)FindSignature("server.dll", "\x48\x85\xC9\x0F\x84\x3F\x3F\x3F\x3F\x48\x8B\xC4\x48\x89\x58\x18");
 	FnGiveNamedItem = (GiveNamedItem_t)FindSignature("server.dll", "\x48\x89\x5C\x24\x18\x48\x89\x74\x24\x20\x55\x57\x41\x54\x41\x56\x41\x57\x48\x8D\x6C\x24\xD9");
 	FnEntityRemove = (EntityRemove_t)FindSignature("server.dll", "\x48\x85\xD2\x0F\x3F\x3F\x3F\x3F\x3F\x57\x48\x3F\x3F\x3F\x48\x89\x3F\x3F\x3F\x48\x8B\xF9\x48\x8B");
-    FnSetMeshGroupMask = (SetMeshGroupMask_t)FindSignature("server.dll", "\xE8\x3F\x3F\x3F\x3F\x8B\x45\xD0\x48\x8B\x55\xD8");
+    	//FnSetMeshGroupMask = (SetMeshGroupMask_t)FindSignature("server.dll", "\xE8\x3F\x3F\x3F\x3F\x8B\x45\xD0\x48\x8B\x55\xD8");
 	#else
 	CModule libserver(g_pSource2Server);
 	FnUTIL_ClientPrintAll = libserver.FindPatternSIMD("55 48 89 E5 41 57 49 89 D7 41 56 49 89 F6 41 55 41 89 FD").RCast< decltype(FnUTIL_ClientPrintAll) >();
 	FnUTIL_ClientPrint = libserver.FindPatternSIMD("55 48 89 E5 41 57 49 89 CF 41 56 49 89 D6 41 55 41 89 F5 41 54 4C 8D A5 A0 FE FF FF").RCast<decltype(FnUTIL_ClientPrint)>();
 	FnGiveNamedItem = libserver.FindPatternSIMD("55 48 89 E5 41 57 41 56 49 89 CE 41 55 49 89 F5 41 54 49 89 D4 53 48 89").RCast<decltype(FnGiveNamedItem)>();
 	FnEntityRemove = libserver.FindPatternSIMD("48 85 F6 74 0B 48 8B 76 10 E9 B2 FE FF FF").RCast<decltype(FnEntityRemove)>();
-	FnSetMeshGroupMask = libserver.FindPatternSIMD("E8 ? ? ? ? 8B 45 D0 48 8B 55 D8").RCast<decltype(FnSetMeshGroupMask)>();
+	//FnSetMeshGroupMask = libserver.FindPatternSIMD("E8 ? ? ? ? 8B 45 D0 48 8B 55 D8").RCast<decltype(FnSetMeshGroupMask)>();
 	#endif
 	g_pGameRules = nullptr;
 
@@ -321,8 +321,8 @@ CON_COMMAND_F(skin, "修改武器皮肤", FCVAR_CLIENT_CAN_EXECUTE)
     FnEntityRemove(g_pGameEntitySystem, pPlayerWeapon, nullptr, -1);
     FnGiveNamedItem(pPlayerPawn->m_pItemServices(), weapon_name->second.c_str(), nullptr, nullptr, nullptr, nullptr);
     pPlayerWeapon->m_AttributeManager().m_Item().m_iAccountID() = 271098320;
-    int64_t skinMeshGroupMask = 2;
-    FnSetMeshGroupMask(skinMeshGroupMask);
+    //int64_t skinMeshGroupMask = 2;
+    //FnSetMeshGroupMask(skinMeshGroupMask);
     
     META_CONPRINTF("--------Fuzzys Skin System: Skin called by %lld\n", steamid);
     sprintf(buf, " \x0E [皮肤系统] \x04 更换成功! 当前武器皮肤编号:%d 模板:%d 磨损:%f", g_PlayerSkins[steamid][weaponId].m_nFallbackPaintKit, g_PlayerSkins[steamid][weaponId].m_nFallbackSeed, g_PlayerSkins[steamid][weaponId].m_flFallbackWear);
