@@ -346,10 +346,16 @@ CON_COMMAND_F(knife, "给玩家发刀", FCVAR_CLIENT_CAN_EXECUTE)
 		sprintf(buf, " \x0E [刷刀系统] \x01 请输入命令 \x06 knife <id> \x01 到控制台!");
 		FnUTIL_ClientPrint(pPlayerController, 3, buf, nullptr, nullptr, nullptr, nullptr);
 
-		sprintf(buf, " \x0E [刷刀系统] \x01 可使用的刀id范围为 \x06 500 - 525 \x01 详细内容请访问网站: \x06 skin.fu.link !");
+		sprintf(buf, " \x0E [刷刀系统] \x01 可使用的刀id为 \x06 500(刺刀), 503(海豹短刀), 505(折叠刀), 506(穿肠刀), 507(爪子刀), 508(M9刺刀) ");
 		FnUTIL_ClientPrint(pPlayerController, 3, buf, nullptr, nullptr, nullptr, nullptr);
 
-		sprintf(buf, " \x0E [刷刀系统] \x01 如有其他问题请加QQ群询问: \x06 314498023!");
+	        sprintf(buf, " \x0E [刷刀系统] \x01 可使用的刀id为： \x06 509(猎杀者匕首), 512(弯刀), 514(鲍伊猎刀), 515(蝴蝶刀), 516(暗影双匕), 517(系绳匕首) ");
+		FnUTIL_ClientPrint(pPlayerController, 3, buf, nullptr, nullptr, nullptr, nullptr);
+
+	        sprintf(buf, " \x0E [刷刀系统] \x01 可使用的刀id为： \x06 518(求生匕首), 519(熊刀), 520(折刀), 521(流浪者匕首), 522(短剑), 523(锯齿爪刀), 525(骷髅匕首) ");
+		FnUTIL_ClientPrint(pPlayerController, 3, buf, nullptr, nullptr, nullptr, nullptr);
+
+		sprintf(buf, " \x0E [刷刀系统] \x01 如有其他问题请加QQ群询问: \x06 314498023 !");
 		FnUTIL_ClientPrint(pPlayerController, 3, buf, nullptr, nullptr, nullptr, nullptr);
 
 		sprintf(buf, "-------------------------------------------------");
@@ -473,7 +479,7 @@ const char* Skin::GetLicense()
 
 const char* Skin::GetVersion()
 {
-	return "1.0.1";
+	return "1.0.2";
 }
 
 const char* Skin::GetDate()
