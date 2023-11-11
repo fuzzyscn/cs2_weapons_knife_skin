@@ -1,4 +1,5 @@
-# CSGO2 Server Preview Paint Demo Plugins
+# CS2 服务器刷刀修改皮肤插件
 
-this demo plugin,Please use with caution
-No support provided for this plugin
+knife命令刷刀 参数为刀具ID 如knife 515是蝴蝶刀，切换至默认刀后输入生效，不加参数有使用提示
+skin命令修改皮肤 参数使用网站上生成，也可以去buff查询，不加任何参数会有使用提示！如skin 38
+出现贴图错乱bug请在枪上装一个任意非默认皮肤再换，原因是有皮肤的模型和默认皮肤的模型uv不一样，cs2为了兼容新旧枪模型所致。估计再出皮肤就是新模型的了
