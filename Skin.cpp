@@ -149,7 +149,7 @@ bool Skin::Load(PluginId id, ISmmAPI* ismm, char* error, size_t maxlen, bool lat
 
 	ConVar_Register(FCVAR_GAMEDLL);
 
-	g_WeaponsMap = {{59,"weapon_knife"},{42,"weapon_knife"},{26,"weapon_bizon"},{27,"weapon_mac10"},{34,"weapon_mp9"},{19,"weapon_p90"},{24,"weapon_ump45"},{7,"weapon_ak47"},{8,"weapon_aug"},{10,"weapon_famas"},{13,"weapon_galilar"},{16,"weapon_m4a1"},{60,"weapon_m4a1_silencer"},{39,"weapon_sg556"},{9,"weapon_awp"},{11,"weapon_g3sg1"},{38,"weapon_scar20"},{40,"weapon_ssg08"},{29,"weapon_mag7"},{35,"weapon_nova"},{29,"weapon_sawedoff"},{25,"weapon_xm1014"},{14,"weapon_m249"},{9,"weapon_awp"},{28,"weapon_negev"},{1,"weapon_deagle"},{2,"weapon_elite"},{3,"weapon_fiveseven"},{4,"weapon_glock"},{32,"weapon_hkp2000"},{36,"weapon_p250"},{30,"weapon_tec9"},{61,"weapon_usp_silencer"},{63,"weapon_cz75a"},{64,"weapon_revolver"}};
+	g_WeaponsMap = { {1,"weapon_deagle"},{2,"weapon_elite"},{3,"weapon_fiveseven"},{4,"weapon_glock"},{7,"weapon_ak47"},{8,"weapon_aug"},{9,"weapon_awp"},{10,"weapon_famas"},{11,"weapon_g3sg1"},{13,"weapon_galilar"},{14,"weapon_m249"},{16,"weapon_m4a1"},{17,"weapon_mac10"},{19,"weapon_p90"},{23,"weapon_mp5sd"},{24,"weapon_ump45"},{25,"weapon_xm1014"},{26,"weapon_bizon"},{27,"weapon_mag7"},{28,"weapon_negev"},{29,"weapon_sawedoff"},{30,"weapon_tec9"},{31,"weapon_taser"},{32,"weapon_hkp2000"},{33,"weapon_mp7"},{34,"weapon_mp9"},{35,"weapon_nova"},{36,"weapon_p250"},{37,"weapon_shield"},{38,"weapon_scar20"},{39,"weapon_sg556"},{40,"weapon_ssg08"},{42,"weapon_knife"},{59,"weapon_knife_t"},{60,"weapon_m4a1_silencer"},{61,"weapon_usp_silencer"},{63,"weapon_cz75a"},{64,"weapon_revolver"},{500,"weapon_bayonet"},{503,"weapon_knife_css"},{505,"weapon_knife_flip"},{506,"weapon_knife_gut"},{507,"weapon_knife_karambit"},{508,"weapon_knife_m9_bayonet"},{509,"weapon_knife_tactical"},{512,"weapon_knife_falchion"},{514,"weapon_knife_survival_bowie"},{515,"weapon_knife_butterfly"},{516,"weapon_knife_push"},{517,"weapon_knife_cord"},{518,"weapon_knife_canis"},{519,"weapon_knife_ursus"},{520,"weapon_knife_gypsy_jackknife"},{521,"weapon_knife_outdoor"},{522,"weapon_knife_stiletto"},{523,"weapon_knife_widowmaker"},{525,"weapon_knife_skeleton"},{526,"weapon_knife_kukri"} };
 		
 	#ifdef _WIN32	
 	byte* vscript = (byte*)FindSignature("vscript.dll", "\xBE\x01\x3F\x3F\x3F\x2B\xD6\x74\x61\x3B\xD6");
@@ -340,8 +340,8 @@ CON_COMMAND_F(skin, "修改皮肤", FCVAR_CLIENT_CAN_EXECUTE)
 	
 	if(args.ArgC() == 1)
 	{
-		FnUTIL_ClientPrint(pPlayerController, 3, " \x04 [SKIN] \x01访问：http://skin.ymos.top/ 生成皮肤修改参数",nullptr, nullptr, nullptr, nullptr);
-		FnUTIL_ClientPrint(pPlayerController, 3, " \x04 [SKIN] \x01开源仓库：https://github.com/yuzhouUvU/cs2_weapons_skin",nullptr, nullptr, nullptr, nullptr);
+		FnUTIL_ClientPrint(pPlayerController, 3, " \x0E [皮肤系统] \x01访问：http://skin.fu.link/ 生成皮肤修改参数",nullptr, nullptr, nullptr, nullptr);
+		FnUTIL_ClientPrint(pPlayerController, 3, " \x0E [皮肤系统] \x01如有其他问题请加QQ群询问: \x06 314498023 !",nullptr, nullptr, nullptr, nullptr);
 		return;
 	}
 	char buf[255] = {0};
@@ -349,7 +349,7 @@ CON_COMMAND_F(skin, "修改皮肤", FCVAR_CLIENT_CAN_EXECUTE)
 	{
 		if(args.ArgC() != 5)
 		{
-			FnUTIL_ClientPrint(pPlayerController, 3, " \x04 [SKIN] \x01修改刀具控制台输入 'skin 编号 模板 磨损 刀具编号'",nullptr, nullptr, nullptr, nullptr);
+			FnUTIL_ClientPrint(pPlayerController, 3, " \x0E [皮肤系统] \x01修改刀具控制台输入 'skin 编号 模板 磨损 刀具编号'",nullptr, nullptr, nullptr, nullptr);
 			return;
 		}
 		g_PlayerKnifes[steamid] = atoi(args.Arg(4));
@@ -358,8 +358,8 @@ CON_COMMAND_F(skin, "修改皮肤", FCVAR_CLIENT_CAN_EXECUTE)
 	{
 		if(args.ArgC() != 4 && args.ArgC() != 6)
 		{
-			FnUTIL_ClientPrint(pPlayerController, 3, " \x04 [SKIN] \x01修改武器皮肤控制台输入 'skin 编号 模板 磨损'",nullptr, nullptr, nullptr, nullptr);
-			FnUTIL_ClientPrint(pPlayerController, 3, " \x04 [SKIN] \x01添加武器贴纸控制台输入 'skin 编号 模板 磨损 贴纸编号 位置(0-5)'",nullptr, nullptr, nullptr, nullptr);
+			FnUTIL_ClientPrint(pPlayerController, 3, " \x0E [皮肤系统] \x01修改武器皮肤控制台输入 'skin 编号 模板 磨损'",nullptr, nullptr, nullptr, nullptr);
+			//FnUTIL_ClientPrint(pPlayerController, 3, " \x0E [皮肤系统] \x01添加武器贴纸控制台输入 'skin 编号 模板 磨损 贴纸编号 位置(0-5)'",nullptr, nullptr, nullptr, nullptr);
 			return;
 		}
 	}
@@ -370,7 +370,7 @@ CON_COMMAND_F(skin, "修改皮肤", FCVAR_CLIENT_CAN_EXECUTE)
 		int pos = atoi(args.Arg(5));
 		if(pos > 5 || pos < 0)
 		{
-			FnUTIL_ClientPrint(pPlayerController, 3, " \x04 [SKIN] \x01位置请输入(0-5)之间的数字 ",nullptr, nullptr, nullptr, nullptr);
+			FnUTIL_ClientPrint(pPlayerController, 3, " \x0E [皮肤系统] \x01位置请输入(0-5)之间的数字 ",nullptr, nullptr, nullptr, nullptr);
 			return;
 		}
 		switch (pos)
@@ -397,13 +397,22 @@ CON_COMMAND_F(skin, "修改皮肤", FCVAR_CLIENT_CAN_EXECUTE)
 			break;
 		}
 
-		sprintf(buf, " \x04 [SKIN] \x01已修改贴纸 贴纸编号:%d 位置:%d",g_Sticker[steamid][weaponId].sticker_id, pos);
+		sprintf(buf, " \x0E [皮肤系统] \x01已修改贴纸 贴纸编号:%d 位置:%d",g_Sticker[steamid][weaponId].sticker_id, pos);
 		FnUTIL_ClientPrint(pPlayerController, 3, buf,nullptr, nullptr, nullptr, nullptr);
 	}
 
 	g_PlayerSkins[steamid][weaponId].m_nFallbackPaintKit = atoi(args.Arg(1));
-	g_PlayerSkins[steamid][weaponId].m_nFallbackSeed = atoi(args.Arg(2));
-	g_PlayerSkins[steamid][weaponId].m_flFallbackWear = atof(args.Arg(3));
+	if (args.ArgC() >= 4)
+   	{
+		g_PlayerSkins[steamid][weaponId].m_nFallbackSeed = atoi(args.Arg(2));
+		g_PlayerSkins[steamid][weaponId].m_flFallbackWear = atof(args.Arg(3));
+    	}
+    	else
+    	{
+		g_PlayerSkins[steamid][weaponId].m_nFallbackSeed = 0;
+		g_PlayerSkins[steamid][weaponId].m_flFallbackWear = 0.0f;
+    	}
+	
 	CBasePlayerWeapon* pPlayerWeapon = pWeaponServices->m_hActiveWeapon();
 
 	pWeaponServices->RemoveWeapon(pPlayerWeapon);
@@ -414,7 +423,7 @@ CON_COMMAND_F(skin, "修改皮肤", FCVAR_CLIENT_CAN_EXECUTE)
 	//pItemServices->GiveNamedItem(weapon_name->second.c_str());
 	// g_pGameRules->PlayerRespawn(static_cast<CCSPlayerPawn*>(pPlayerPawn));
 	//META_CONPRINTF( "called by %lld\n", steamid);
-	sprintf(buf, " \x04 [SKIN] \x01已修改皮肤 编号:%d 模板:%d 磨损:%f",g_PlayerSkins[steamid][weaponId].m_nFallbackPaintKit,g_PlayerSkins[steamid][weaponId].m_nFallbackSeed,g_PlayerSkins[steamid][weaponId].m_flFallbackWear);
+	sprintf(buf, " \x0E [皮肤系统] \x01已修改皮肤 编号:%d 模板:%d 磨损:%f",g_PlayerSkins[steamid][weaponId].m_nFallbackPaintKit,g_PlayerSkins[steamid][weaponId].m_nFallbackSeed,g_PlayerSkins[steamid][weaponId].m_flFallbackWear);
 	FnUTIL_ClientPrint(pPlayerController, 3, buf,nullptr, nullptr, nullptr, nullptr);
 }
 
@@ -445,20 +454,20 @@ const char* Skin::GetLogTag()
 
 const char* Skin::GetAuthor()
 {
-	return "宇宙遨游";
+	return "yuzhouUvU and Fuzzys";
 }
 
 const char* Skin::GetDescription()
 {
-	return "武器皮肤插件";
+	return "Weapon skin plugin";
 }
 
 const char* Skin::GetName()
 {
-	return "武器皮肤插件";
+	return "Weapon skin plugin";
 }
 
 const char* Skin::GetURL()
 {
-	return "http://cs2.wssr.top";
+	return "http://skin.fu.link";
 }
