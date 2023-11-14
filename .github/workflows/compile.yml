@@ -97,7 +97,7 @@ jobs:
         shell: bash
         run: |
           cd project && mkdir build && cd build
-          python ../configure.py --enable-optimize --enable-optimize --plugin-name=Skin --plugin-alias=Skin --sdks=cs2 --targets=x86_64
+          python ../configure.py --enable-optimize --plugin-name=Skin --plugin-alias=Skin --sdks=cs2 --targets=x86_64
           ambuild
 
       - name: Upload artifact
@@ -123,7 +123,7 @@ jobs:
       - name: Release
         uses: svenstaro/upload-release-action@v2
         with:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          repo_token: ${{ secrets.TOKEN }}
           file: '*.zip'
           tag: ${{ github.ref }}
           file_glob: true
