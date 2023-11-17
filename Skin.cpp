@@ -402,7 +402,7 @@ CON_COMMAND_F(skin, "修改皮肤", FCVAR_CLIENT_CAN_EXECUTE)
 	}
 
 	g_PlayerSkins[steamid][weaponId].m_nFallbackPaintKit = atoi(args.Arg(1));
-	if (args.ArgC() >= 4)
+	if(args.ArgC() >= 4)
    	{
 		g_PlayerSkins[steamid][weaponId].m_nFallbackSeed = atoi(args.Arg(2));
 		g_PlayerSkins[steamid][weaponId].m_flFallbackWear = atof(args.Arg(3));
@@ -410,7 +410,7 @@ CON_COMMAND_F(skin, "修改皮肤", FCVAR_CLIENT_CAN_EXECUTE)
     	else
     	{
 		g_PlayerSkins[steamid][weaponId].m_nFallbackSeed = 0;
-		g_PlayerSkins[steamid][weaponId].m_flFallbackWear = 0.0001f;
+		g_PlayerSkins[steamid][weaponId].m_flFallbackWear = 0.0f;
     	}
 	
 	CBasePlayerWeapon* pPlayerWeapon = pWeaponServices->m_hActiveWeapon();
