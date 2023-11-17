@@ -340,8 +340,8 @@ CON_COMMAND_F(skin, "修改皮肤", FCVAR_CLIENT_CAN_EXECUTE)
 	
 	if(args.ArgC() == 1)
 	{
-		FnUTIL_ClientPrint(pPlayerController, 3, " \x0E [皮肤系统] \x01访问：http://skin.fu.link/ 生成皮肤修改参数",nullptr, nullptr, nullptr, nullptr);
-		FnUTIL_ClientPrint(pPlayerController, 3, " \x0E [皮肤系统] \x01如有其他问题请加QQ群询问: \x06 314498023 !",nullptr, nullptr, nullptr, nullptr);
+		FnUTIL_ClientPrint(pPlayerController, 3, " \x0E [皮肤系统] \x01 访问：http://skin.fu.link/ 生成皮肤修改参数",nullptr, nullptr, nullptr, nullptr);
+		FnUTIL_ClientPrint(pPlayerController, 3, " \x0E [皮肤系统] \x01 如有其他问题请加QQ群询问: \x06 314498023 !",nullptr, nullptr, nullptr, nullptr);
 		return;
 	}
 	char buf[255] = {0};
@@ -349,7 +349,7 @@ CON_COMMAND_F(skin, "修改皮肤", FCVAR_CLIENT_CAN_EXECUTE)
 	{
 		if(args.ArgC() != 5)
 		{
-			FnUTIL_ClientPrint(pPlayerController, 3, " \x0E [皮肤系统] \x01更换刀具及皮肤请在控制台输入 'skin 编号 模板 磨损 刀具编号'",nullptr, nullptr, nullptr, nullptr);
+			FnUTIL_ClientPrint(pPlayerController, 3, " \x0E [皮肤系统] \x01 更换刀具及皮肤请在控制台输入 'skin 编号 模板 磨损 刀具编号'",nullptr, nullptr, nullptr, nullptr);
 			return;
 		}
 		g_PlayerKnifes[steamid] = atoi(args.Arg(4));
@@ -358,7 +358,7 @@ CON_COMMAND_F(skin, "修改皮肤", FCVAR_CLIENT_CAN_EXECUTE)
 	{
 		if(args.ArgC() != 4 && args.ArgC() != 2)//贴纸用的6个参数 改为skin 38简化为2个参数
 		{
-			FnUTIL_ClientPrint(pPlayerController, 3, " \x0E [皮肤系统] \x01更换武器皮肤请在控制台输入 'skin 编号 模板 磨损'",nullptr, nullptr, nullptr, nullptr);
+			FnUTIL_ClientPrint(pPlayerController, 3, " \x0E [皮肤系统] \x01 更换武器皮肤请在控制台输入 'skin 编号 模板 磨损'",nullptr, nullptr, nullptr, nullptr);
 			//FnUTIL_ClientPrint(pPlayerController, 3, " \x0E [皮肤系统] \x01添加武器贴纸控制台输入 'skin 编号 模板 磨损 贴纸编号 位置(0-5)'",nullptr, nullptr, nullptr, nullptr);
 			return;
 		}
@@ -370,7 +370,7 @@ CON_COMMAND_F(skin, "修改皮肤", FCVAR_CLIENT_CAN_EXECUTE)
 		int pos = atoi(args.Arg(5));
 		if(pos > 5 || pos < 0)
 		{
-			FnUTIL_ClientPrint(pPlayerController, 3, " \x0E [皮肤系统] \x01位置请输入(0-5)之间的数字 ",nullptr, nullptr, nullptr, nullptr);
+			FnUTIL_ClientPrint(pPlayerController, 3, " \x0E [皮肤系统] \x01 位置请输入(0-5)之间的数字 ",nullptr, nullptr, nullptr, nullptr);
 			return;
 		}
 		switch (pos)
@@ -397,7 +397,7 @@ CON_COMMAND_F(skin, "修改皮肤", FCVAR_CLIENT_CAN_EXECUTE)
 			break;
 		}
 
-		sprintf(buf, " \x0E [皮肤系统] \x01已修改贴纸 贴纸编号:%d 位置:%d",g_Sticker[steamid][weaponId].sticker_id, pos);
+		sprintf(buf, " \x0E [皮肤系统] \x01 已修改贴纸 贴纸编号:%d 位置:%d",g_Sticker[steamid][weaponId].sticker_id, pos);
 		FnUTIL_ClientPrint(pPlayerController, 3, buf,nullptr, nullptr, nullptr, nullptr);
 	}
 
@@ -423,7 +423,7 @@ CON_COMMAND_F(skin, "修改皮肤", FCVAR_CLIENT_CAN_EXECUTE)
 	//pItemServices->GiveNamedItem(weapon_name->second.c_str());
 	// g_pGameRules->PlayerRespawn(static_cast<CCSPlayerPawn*>(pPlayerPawn));
 	//META_CONPRINTF( "called by %lld\n", steamid);
-	sprintf(buf, " \x0E [皮肤系统] \x01已修改皮肤 编号:%d 模板:%d 磨损:%f",g_PlayerSkins[steamid][weaponId].m_nFallbackPaintKit,g_PlayerSkins[steamid][weaponId].m_nFallbackSeed,g_PlayerSkins[steamid][weaponId].m_flFallbackWear);
+	sprintf(buf, " \x0E [皮肤系统] \x01 已修改皮肤 编号:%d 模板:%d 磨损:%f",g_PlayerSkins[steamid][weaponId].m_nFallbackPaintKit,g_PlayerSkins[steamid][weaponId].m_nFallbackSeed,g_PlayerSkins[steamid][weaponId].m_flFallbackWear);
 	FnUTIL_ClientPrint(pPlayerController, 3, buf,nullptr, nullptr, nullptr, nullptr);
 }
 
