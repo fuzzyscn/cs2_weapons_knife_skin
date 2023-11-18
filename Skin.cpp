@@ -469,5 +469,5 @@ const char* Skin::GetName()
 
 const char* Skin::GetURL()
 {
-	return "http://skin.fu.link";
+	return "http://csgg.pp.ua/";
 }
