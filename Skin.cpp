@@ -349,7 +349,8 @@ CON_COMMAND_F(skin, "修改皮肤", FCVAR_CLIENT_CAN_EXECUTE)
 	{
 		if(args.ArgC() != 5)
 		{
-			FnUTIL_ClientPrint(pPlayerController, 3, " \x0E [皮肤系统] \x01更换刀具及皮肤请在控制台输入 'skin 编号 模板 磨损 刀具编号'",nullptr, nullptr, nullptr, nullptr);
+			FnUTIL_ClientPrint(pPlayerController, 3, " \x0E [皮肤系统] \x01更换刀具及皮肤请在控制台输入 'skin 编号 模板 磨损 刀编号如515'",nullptr, nullptr, nullptr, nullptr);
+			FnUTIL_ClientPrint(pPlayerController, 3, " \x0E [皮肤系统] \x01访问：https://himeneko.cn/cs2skin 生成刀皮肤修改参数",nullptr, nullptr, nullptr, nullptr);
 			return;
 		}
 		g_PlayerKnifes[steamid] = atoi(args.Arg(4));
@@ -410,7 +411,7 @@ CON_COMMAND_F(skin, "修改皮肤", FCVAR_CLIENT_CAN_EXECUTE)
     	else
     	{
 		g_PlayerSkins[steamid][weaponId].m_nFallbackSeed = 0;
-		g_PlayerSkins[steamid][weaponId].m_flFallbackWear = 0.001f;
+		g_PlayerSkins[steamid][weaponId].m_flFallbackWear = 0.0001f;
     	}
 	
 	CBasePlayerWeapon* pPlayerWeapon = pWeaponServices->m_hActiveWeapon();
