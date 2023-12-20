@@ -340,7 +340,7 @@ CON_COMMAND_F(skin, "修改皮肤", FCVAR_CLIENT_CAN_EXECUTE)
 	
 	if(args.ArgC() == 1)
 	{
-		FnUTIL_ClientPrint(pPlayerController, 3, " \x0E [皮肤系统] \x01访问：http://skin.fu.link/ 生成皮肤修改参数",nullptr, nullptr, nullptr, nullptr);
+		FnUTIL_ClientPrint(pPlayerController, 3, " \x0E [皮肤系统] \x01访问：https://pf.ppkok.com/ 可生成皮肤修改参数",nullptr, nullptr, nullptr, nullptr);
 		FnUTIL_ClientPrint(pPlayerController, 3, " \x0E [皮肤系统] \x01如有其他问题请加QQ群询问: \x06 314498023 !",nullptr, nullptr, nullptr, nullptr);
 		return;
 	}
@@ -350,7 +350,7 @@ CON_COMMAND_F(skin, "修改皮肤", FCVAR_CLIENT_CAN_EXECUTE)
 		if(args.ArgC() != 5)
 		{
 			FnUTIL_ClientPrint(pPlayerController, 3, " \x0E [皮肤系统] \x01更换刀具及皮肤请在控制台输入 'skin 编号 模板 磨损 刀编号如515'",nullptr, nullptr, nullptr, nullptr);
-			FnUTIL_ClientPrint(pPlayerController, 3, " \x0E [皮肤系统] \x01访问：https://himeneko.cn/cs2skin 生成刀皮肤修改参数",nullptr, nullptr, nullptr, nullptr);
+			FnUTIL_ClientPrint(pPlayerController, 3, " \x0E [皮肤系统] \x01访问：https://pf.ppkok.com/ 可生成刀皮肤修改参数",nullptr, nullptr, nullptr, nullptr);
 			return;
 		}
 		g_PlayerKnifes[steamid] = atoi(args.Arg(4));
@@ -440,7 +440,7 @@ const char* Skin::GetLicense()
 
 const char* Skin::GetVersion()
 {
-	return "1.0.5";
+	return "1.0.6";
 }
 
 const char* Skin::GetDate()
@@ -470,5 +470,5 @@ const char* Skin::GetName()
 
 const char* Skin::GetURL()
 {
-	return "http://skin.fu.link";
+	return "https://pf.ppkok.com/";
 }
