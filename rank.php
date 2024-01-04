@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fuzzys - CS2服务器排名</title>
+    <title>Toplay - CS2 RANK STATS</title>
     <link href="favicon.ico" rel="shortcut icon" type="image/x-icon">
     <meta name='robots' content='index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' />
     <meta name="description" content="List of player ranks" />
@@ -58,14 +58,19 @@ $(document).ready(function(){
 		var data_hitsgiven = jQuery(this).attr("data-hitsgiven");
 		var data_headshots = jQuery(this).attr("data-headshots");
 		var data_grenades = jQuery(this).attr("data-grenades");
-		var data_mvp = jQuery(this).attr("data-mvp");
 		var data_roundwin = jQuery(this).attr("data-roundwin");
 		var data_roundlose = jQuery(this).attr("data-roundlose");
-		var data_kda = jQuery(this).attr("data-kda");	
+		var data_gamewin = jQuery(this).attr("data-gamewin");
+		var data_gamelose = jQuery(this).attr("data-gamelose");
+		var data_firstblood = jQuery(this).attr("data-firstblood");
+		var data_shoots = jQuery(this).attr("data-shoots");
+		var data_mvp = jQuery(this).attr("data-mvp");
+
+
 	
   Swal.fire({
-	html: '<h2>详细信息</h2><b>Steam 页面:</b> <a href="https://steamcommunity.com/profiles/' + data_steamid + '" target="_blank" rel="noopener">' + data_names + '</a><br><b>击杀:</b> ' + data_kills + '<br><b>死亡:</b> ' + data_deaths + '<br><b>助攻:</b> ' + data_assists + '<br><b>被击中:</b> ' + data_hitstaken + '<br><b>击中次数:</b> ' + data_hitsgiven + '<br><b>爆头:</b> ' + data_headshots + '<br><b>炸死:</b> ' + data_grenades + '<br><b>MVP:</b> ' + data_mvp + '<br><b>获胜回合:</b> ' + data_roundwin + '<br><b>落败回合:</b> ' + data_roundlose + '<br><b>KDA:</b> ' + data_kda,
-	confirmButtonText: '关闭'
+	html: '<h2>STATS</h2><b>Steam Profile:</b> <a href="https://steamcommunity.com/profiles/' + data_steamid + '" target="_blank" rel="noopener">' + data_names + '</a><br><b>Kills:</b> ' + data_kills + '<br><b>Deaths:</b> ' + data_deaths + '<br><b>FirstBlood:</b> ' + data_firstblood + '<br><b>Shoots:</b> ' + data_shoots + '<br><b>Assists:</b> ' + data_assists + '<br><b>Hits Taken:</b> ' + data_hitstaken + '<br><b>Hits Given:</b> ' + data_hitsgiven + '<br><b>Headshots:</b> ' + data_headshots + '<br><b>Grenades:</b> ' + data_grenades + '<br><b>MVP:</b> ' + data_mvp + '<br><b>Rounds Win:</b> ' + data_roundwin + '<br><b>Rounds Lose:</b> ' + data_roundlose +' <br><b>Game Win:</b> ' + data_gamewin + '<br><b>Game Lose:</b> ' + data_gamelose,
+	confirmButtonText: 'Close'
 })
     });
 });
@@ -123,19 +128,19 @@ function setActiveButton(serverName) {
 </script>
 
 
-    <h1>玩家积分段位排行榜!</h1>
+    <h1>List of player ranks!</h1>
 
 <!-- Search form for names -->
 <div class="searchdiv">
     <form method="GET" action="">
-        <input type="text" id="search" name="search" placeholder="输入玩家名字...">
+        <input type="text" id="search" name="search" placeholder="Enter name...">
         <input type="hidden" name="server" value="<?php echo $selectedServer; ?>">
-        <button type="submit">搜索</button>
+        <button type="submit">Search</button>
     </form>
     <?php
     // Check if a search has been performed
     if (isset($_GET['search'])) {
-        echo '<a href="' . $_SERVER['PHP_SELF'] . '?server=' . $selectedServer . '" class="back-button">返回全部排名</a>';
+        echo '<a href="' . $_SERVER['PHP_SELF'] . '?server=' . $selectedServer . '" class="back-button">Back to All</a>';
     }
     ?>
 </div><br>
@@ -158,7 +163,7 @@ $prefix = $conn->servers[$selectedServer]['prefix'];
 
 	$search = isset($_GET['search']) ? $_GET['search'] : '';
     // Build the query with the prefix.
-    $query = "SELECT {$prefix}k4ranks.name, {$prefix}k4ranks.rank, {$prefix}k4ranks.steam_id, {$prefix}k4ranks.points, {$prefix}k4stats.steam_id, {$prefix}k4stats.name, {$prefix}k4stats.kills, {$prefix}k4stats.deaths, {$prefix}k4stats.assists, {$prefix}k4stats.hits_taken, {$prefix}k4stats.hits_given, {$prefix}k4stats.headshots, {$prefix}k4stats.grenades, {$prefix}k4stats.mvp, {$prefix}k4stats.round_win, {$prefix}k4stats.round_lose, {$prefix}k4stats.kda 
+    $query = "SELECT {$prefix}k4ranks.name, {$prefix}k4ranks.rank, {$prefix}k4ranks.steam_id, {$prefix}k4ranks.points, {$prefix}k4stats.steam_id, {$prefix}k4stats.name, {$prefix}k4stats.kills, {$prefix}k4stats.deaths, {$prefix}k4stats.assists, {$prefix}k4stats.shoots, {$prefix}k4stats.hits_taken, {$prefix}k4stats.hits_given, {$prefix}k4stats.mvp, {$prefix}k4stats.headshots, {$prefix}k4stats.grenades, {$prefix}k4stats.game_win, {$prefix}k4stats.game_lose, {$prefix}k4stats.round_win, {$prefix}k4stats.round_lose, {$prefix}k4stats.firstblood
         FROM {$prefix}k4ranks
         JOIN {$prefix}k4stats ON {$prefix}k4ranks.steam_id = {$prefix}k4stats.steam_id
         WHERE {$prefix}k4ranks.name LIKE :search OR {$prefix}k4stats.name LIKE :search
@@ -180,9 +185,9 @@ $prefix = $conn->servers[$selectedServer]['prefix'];
         echo '<div class="table">
                 <div class="row header">
                     <div class="cell">#</div>
-                    <div class="cell">名字</div>
-                    <div class="cell">段位</div>
-                    <div class="cell">分数</div>
+                    <div class="cell">Name</div>
+                    <div class="cell">Rank</div>
+                    <div class="cell">Points</div>
                 </div>';
 
         // Calculate the total number of records (not just those on the current page)
@@ -209,9 +214,9 @@ $prefix = $conn->servers[$selectedServer]['prefix'];
 
             echo '<div class="row">
                     <div class="cell" data-title="#">' . $startRowNumber . '</div>
-                    <div class="cell cell1" data-title="名字" data-steamid="' . $row["steam_id"] . '" data-names="' . $row["name"] . '" data-kills="' . $row["kills"] . '" data-deaths="' . $row["deaths"] . '" data-assists="' . $row["assists"] . '" data-hitstaken="' . $row["hits_taken"] . '" data-hitsgiven="' . $row["hits_given"] . '" data-headshots="' . $row["headshots"] . '" data-grenades="' . $row["grenades"] . '" data-mvp="' . $row["mvp"] . '" data-roundwin="' . $row["round_win"] . '" data-roundlose="' . $row["round_lose"] . '" data-kda="' . $row["kda"] . '" >' . $row["name"] . '</div>
-                    <div class="cell" data-title="段位" style="color: ' . $rankClass . '; font-weight: bold;">' . $row["rank"] . '</div>
-                    <div class="cell" data-title="分数">' . $row["points"] . '</div>
+					<div class="cell cell1" data-title="Name" data-steamid="' . $row["steam_id"] . '" data-names="' . $row["name"] . '" data-kills="' . $row["kills"] . '" data-firstblood="' . $row["firstblood"] . '" data-deaths="' . $row["deaths"] . '" data-assists="' . $row["assists"] . '" data-shoots="' . $row["shoots"] . '" data-hitstaken="' . $row["hits_taken"] . '" data-hitsgiven="' . $row["hits_given"] . '" data-headshots="' . $row["headshots"] . '" data-grenades="' . $row["grenades"] . '" data-roundwin="' . $row["round_win"] . '" data-roundlose="' . $row["round_lose"] . '" data-gamewin="' . $row["game_win"] . '" data-mvp="' . $row["mvp"] . '" data-gamelose="' . $row["game_lose"] . '">' . $row["name"] . '</div>
+                    <div class="cell" data-title="Rank" style="color: ' . $rankClass . '; font-weight: bold;">' . $row["rank"] . '</div>
+                    <div class="cell" data-title="Points">' . $row["points"] . '</div>
                   </div>';
 
             $startRowNumber++;
@@ -261,7 +266,7 @@ echo '</div>';
         // Close the wrapper
         echo '</div>';
     } else {
-    echo '<div class="errordiv">什么都没找到!' . $stmt->errorInfo()[2] . '</div>';
+    echo '<div class="errordiv">Nothing was found!' . $stmt->errorInfo()[2] . '</div>';
 }
 
     // Function that returns the corresponding text color based on the rank name
@@ -269,25 +274,25 @@ echo '</div>';
     {
         switch ($rankName) {
 			
-            case '无段位':
+            case 'Bronze':
             return 'grey';
 				
-            case '白银':
+            case 'Silver':
             return '#C0C0C0';
 				
-            case '黄金':
+            case 'Gold':
             return 'gold';
 				
-            case '钻石':
+            case 'Platinum':
             return 'blue';
 			
-            case '大师':
+            case 'Diamond':
             return 'purple';
 				
-            case 'Boss':
+            case 'Master':
             return 'magenta';
 				
-            case '超人':
+            case 'GrandMaster':
             return 'Red';
 				
             default:

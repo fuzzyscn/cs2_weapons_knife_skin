@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fuzzys - CS2服务器时长排名</title>
+    <title>Toplay - CS2 Hours Played</title>
 	<link href="favicon.ico" rel="shortcut icon" type="image/x-icon" >
 	<meta name='robots' content='index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' />
 	<meta name="description" content="List with the hours played by each player on the server." />
@@ -58,8 +58,8 @@ $(document).ready(function(){
 	
   Swal.fire({
 	icon: "info",  
-	html: '<b>Steam 页面:</b> <a href="https://steamcommunity.com/profiles/' + data_steamid + '" target="_blank" rel="noopener">' + data_names + '</a><br><b>上次登录:</b> ' + (data_lastseen ? data_lastseen : '-') + '<br><b>死亡:</b> ' + (data_dead ? data_dead : '-') + '<br><b>存活:</b> ' + (data_alive ? data_alive : '-'),
-	confirmButtonText: '关闭'
+	html: '<b>Steam Profile:</b> <a href="https://steamcommunity.com/profiles/' + data_steamid + '" target="_blank" rel="noopener">' + data_names + '</a><br><b>Last Seen:</b> ' + (data_lastseen ? data_lastseen : '-') + '<br><b>Dead:</b> ' + (data_dead ? data_dead : '-') + '<br><b>Alive:</b> ' + (data_alive ? data_alive : '-'),
+	confirmButtonText: 'Close'
 })
     });
 });
@@ -116,19 +116,19 @@ function setActiveButton(serverName) {
 </script>
 
 
-    <h1>玩家游玩时长排行榜!</h1>
+    <h1>List with the hours played by each player on the server!</h1>
 	
 <!-- Search form for names -->
 <div class="searchdiv">
     <form method="GET" action="">
-        <input type="text" id="search" name="search" placeholder="输入玩家名字...">
+        <input type="text" id="search" name="search" placeholder="Enter name...">
         <input type="hidden" name="server" value="<?php echo $selectedServer; ?>">
-        <button type="submit">搜索</button>
+        <button type="submit">Search</button>
     </form>
     <?php
     // Check if a search has been performed
     if (isset($_GET['search'])) {
-        echo '<a href="' . $_SERVER['PHP_SELF'] . '?server=' . $selectedServer . '" class="back-button">返回全部排名</a>';
+        echo '<a href="' . $_SERVER['PHP_SELF'] . '?server=' . $selectedServer . '" class="back-button">Back to All</a>';
     }
     ?>
 </div><br>
@@ -194,11 +194,11 @@ if ($result) {
     echo '<div class="table">
             <div class="row header">
                 <div class="cell">#</div>
-                <div class="cell">名字</div>
-                <div class="cell">总时长</div>
-                <div class="cell">警</div>
-                <div class="cell">匪</div>
-                <div class="cell">观战</div>
+                <div class="cell">Name</div>
+                <div class="cell">Total (approx.)</div>
+                <div class="cell">CT</div>
+                <div class="cell">Terrorist</div>
+                <div class="cell">Spec</div>
             </div>';
 
 // Calculate the total number of records (not just those on the current page)
@@ -222,11 +222,11 @@ if ($result) {
     foreach ($result as $row) {
         echo '<div class="row">
                 <div class="cell" data-title="#">' . $startRowNumber . '</div>
-                <div class="cell cell1" data-title="名字" data-steamid="' . $row["steam_id"] . '" data-dead="' . secondsToMinutes($row["dead"]) . '" data-alive="' . secondsToMinutes($row["alive"]) . '" data-lastseen="' . $row["lastseen"] . '" data-names="' . $row["name"] . '">' . $row["name"] . '</div>
-                <div class="cell" data-title="总时长 (大致.)">' . secondsToMinutes($row["all"]) . '</div>
-                <div class="cell" data-title="警">' . secondsToMinutes($row["ct"]) . '</div>
-                <div class="cell" data-title="匪">' . secondsToMinutes($row["t"]) . '</div>
-                <div class="cell" data-title="观战">' . secondsToMinutes($row["spec"]) . '</div>
+                <div class="cell cell1" data-title="Name" data-steamid="' . $row["steam_id"] . '" data-dead="' . secondsToMinutes($row["dead"]) . '" data-alive="' . secondsToMinutes($row["alive"]) . '" data-lastseen="' . $row["lastseen"] . '" data-names="' . $row["name"] . '">' . $row["name"] . '</div>
+                <div class="cell" data-title="Total (aprox.)">' . secondsToMinutes($row["all"]) . '</div>
+                <div class="cell" data-title="CT">' . secondsToMinutes($row["ct"]) . '</div>
+                <div class="cell" data-title="Terrorist">' . secondsToMinutes($row["t"]) . '</div>
+                <div class="cell" data-title="Spec">' . secondsToMinutes($row["spec"]) . '</div>
               </div>';
         $startRowNumber++;
     }
@@ -274,7 +274,7 @@ echo '</div>';
         // Close the wrapper
         echo '</div>';
     } else {
-        echo '<div class="errordiv">什么都没找到!' . $stmt->errorInfo()[2] . '</div>';
+        echo '<div class="errordiv">Nothing was found!' . $stmt->errorInfo()[2] . '</div>';
     }
 
 // Close the connection to the database

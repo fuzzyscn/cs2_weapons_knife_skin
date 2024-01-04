@@ -1,24 +1,39 @@
 <?php
 // connection.php
+
 function getServerList($conn) {
     $serverList = array_keys($conn->servers);
     return $serverList;
 }
 
 function connectToDatabase($serverName = null) {
-    $servers = [
-		// Fill in the login information for each server
-		'server' => [
-			'hostname' => '',
-			'port' => '3306',
-			'username' => 'game',
-			'password' => '',
-			'database' => 'cs2',
-			'prefix' => ''
-		], 
-		// Add other servers here.
+    
+   $servers = [
+   
+   // Fill in the login information for each server
+   
+		'server1' => [
+        'hostname' => '',
+        'port' => '3306',
+        'username' => '',
+        'password' => '',
+        'database' => '',
+        'prefix' => ''
+    ],  
 
-	];
+		'server2' => [
+        'hostname' => '',
+        'port' => '3306',
+        'username' => '',
+        'password' => '',
+        'database' => '',
+        'prefix' => ''
+    ], 
+	// Add other servers here.
+
+
+
+];
 
     // If serverName is not provided, set it to the first server in the list.
     if ($serverName === null) {
@@ -31,15 +46,16 @@ function connectToDatabase($serverName = null) {
     } else {
         die("Invalid server selection");
     }
-    $serverInfo['prefix'] = $servers[$serverName]['prefix'];
+   $serverInfo['prefix'] = $servers[$serverName]['prefix'];
 
     try {
-		// Add the port to the connection string.
+        
+// Add the port to the connection string.
         $conn = new PDO("mysql:host={$serverInfo['hostname']};port={$serverInfo['port']};dbname={$serverInfo['database']};charset=utf8mb4", $serverInfo['username'], $serverInfo['password']);
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
         // Add the variable $servers to the connection result.
-		$conn->servers = $servers;
+ $conn->servers = $servers;
         $conn->defaultServer = key($servers); // Add the key of the first server to the connection result.
 
         return $conn;
@@ -47,4 +63,6 @@ function connectToDatabase($serverName = null) {
         die("Database connection failed: " . $e->getMessage());
     }
 }
+
+
 ?>
