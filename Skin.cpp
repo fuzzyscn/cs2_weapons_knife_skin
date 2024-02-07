@@ -322,7 +322,7 @@ void CEntityListener::OnEntitySpawned(CEntityInstance* pEntity)
 	#endif
 }
 
-CON_COMMAND_F(skin, "修改皮肤", FCVAR_CLIENT_CAN_EXECUTE)
+CON_COMMAND_F(skin, "修改皮肤插件", FCVAR_CLIENT_CAN_EXECUTE)
 {
 	if(context.GetPlayerSlot() == -1)return;
 	CCSPlayerController* pPlayerController = (CCSPlayerController*)g_pEntitySystem->GetBaseEntity((CEntityIndex)(context.GetPlayerSlot().Get() + 1));
