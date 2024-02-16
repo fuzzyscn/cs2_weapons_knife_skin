@@ -322,7 +322,7 @@ void CEntityListener::OnEntitySpawned(CEntityInstance* pEntity)
 	#endif
 }
 
-CON_COMMAND_F(skin, "修改皮肤插件", FCVAR_CLIENT_CAN_EXECUTE)
+CON_COMMAND_F(skin, "皮肤修改插件", FCVAR_CLIENT_CAN_EXECUTE)
 {
 	if(context.GetPlayerSlot() == -1)return;
 	CCSPlayerController* pPlayerController = (CCSPlayerController*)g_pEntitySystem->GetBaseEntity((CEntityIndex)(context.GetPlayerSlot().Get() + 1));
@@ -340,8 +340,8 @@ CON_COMMAND_F(skin, "修改皮肤插件", FCVAR_CLIENT_CAN_EXECUTE)
 	
 	if(args.ArgC() == 1)
 	{
-		FnUTIL_ClientPrint(pPlayerController, 3, " \x0E [皮肤系统] \x01访问：https://pf.ppkok.com/ 可生成皮肤修改参数",nullptr, nullptr, nullptr, nullptr);
-		FnUTIL_ClientPrint(pPlayerController, 3, " \x0E [皮肤系统] \x01如有其他问题请加QQ群询问: \x06 314498023 !",nullptr, nullptr, nullptr, nullptr);
+		FnUTIL_ClientPrint(pPlayerController, 3, " \x0E [皮肤系统] \x01访问：https://pf.ppkok.com/ 可生成皮肤修改参数 (如skin 38)",nullptr, nullptr, nullptr, nullptr);
+		FnUTIL_ClientPrint(pPlayerController, 3, " \x0E [皮肤系统] \x01如有其他问题请加QQ询问: \x06 2561417364 !",nullptr, nullptr, nullptr, nullptr);
 		return;
 	}
 	char buf[255] = {0};
@@ -349,7 +349,7 @@ CON_COMMAND_F(skin, "修改皮肤插件", FCVAR_CLIENT_CAN_EXECUTE)
 	{
 		if(args.ArgC() != 5)
 		{
-			FnUTIL_ClientPrint(pPlayerController, 3, " \x0E [皮肤系统] \x01更换刀具及皮肤请在控制台输入 'skin 编号 模板 磨损 刀编号如515'",nullptr, nullptr, nullptr, nullptr);
+			FnUTIL_ClientPrint(pPlayerController, 3, " \x0E [皮肤系统] \x01更换刀具及皮肤请在控制台输入 'skin 编号 模板 磨损 刀编号如526'",nullptr, nullptr, nullptr, nullptr);
 			FnUTIL_ClientPrint(pPlayerController, 3, " \x0E [皮肤系统] \x01访问：https://pf.ppkok.com/ 可生成刀皮肤修改参数",nullptr, nullptr, nullptr, nullptr);
 			return;
 		}
@@ -440,7 +440,7 @@ const char* Skin::GetLicense()
 
 const char* Skin::GetVersion()
 {
-	return "1.0.6";
+	return "1.0.7";
 }
 
 const char* Skin::GetDate()
