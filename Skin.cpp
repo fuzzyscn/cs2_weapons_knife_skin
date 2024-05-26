@@ -191,14 +191,14 @@ void Skin::StartupServer(const GameSessionConfiguration_t& config, ISource2World
 	FnUTIL_ClientPrintAll = (UTIL_ClientPrintAll_t)FindSignature("server.dll", "\x48\x89\x5C\x24\x08\x48\x89\x6C\x24\x10\x48\x89\x74\x24\x18\x57\x48\x81\xEC\x70\x01\x3F\x3F\x8B\xE9");
 	FnGiveNamedItem = (GiveNamedItem_t)FindSignature("server.dll", "\x48\x89\x5C\x24\x3F\x48\x89\x74\x24\x3F\x55\x57\x41\x3F\x41\x3F\x41\x3F\x48\x3F\x3F\x3F\x3F\x48\x3F\x3F\x3F\x3F\x3F\x3F\x4D\x3F\x3F\x48");
 	FnEntityRemove = (EntityRemove_t)FindSignature("server.dll", "\x48\x85\xD2\x0F\x3F\x3F\x3F\x3F\x3F\x57\x48\x3F\x3F\x3F\x48\x89\x3F\x3F\x3F\x48\x8B\xF9\x48\x8B");
-	FnSubClassChange = (SubClassChange_t)FindSignature("server.dll", "\x40\x55\x41\x57\x48\x83\xEC\x78\x83\xBA\x38\x04");
+	FnSubClassChange = (SubClassChange_t)FindSignature("server.dll", "\x40\x57\x48\x83\xEC\x20\x48\x8B\xF9\x41\xB0\x01");
 	#else
 	CModule libserver(g_pSource2Server);
 	FnUTIL_ClientPrint = libserver.FindPatternSIMD("55 48 89 E5 41 57 49 89 CF 41 56 49 89 D6 41 55 41 89 F5 41 54 4C 8D A5 A0 FE FF FF").RCast< decltype(FnUTIL_ClientPrint) >();
 	FnUTIL_ClientPrintAll = libserver.FindPatternSIMD("55 48 89 E5 41 57 49 89 D7 41 56 49 89 F6 41 55 41 89 FD").RCast< decltype(FnUTIL_ClientPrintAll) >();
-	FnGiveNamedItem = libserver.FindPatternSIMD("55 48 89 E5 41 57 41 56 49 89 D6 41 55 49 89 FD 41 54 48").RCast<decltype(FnGiveNamedItem)>();
+	FnGiveNamedItem = libserver.FindPatternSIMD("55 48 89 E5 41 57 41 56 49 89 D6 41 55 49 89 CD 41 54 49 89 F4 53 48 89 FB 48 8D 3D D3 CC 7B 00").RCast<decltype(FnGiveNamedItem)>();
 	FnEntityRemove = libserver.FindPatternSIMD("48 85 F6 74 0B 48 8B 76 10 E9 B2 FE FF FF").RCast<decltype(FnEntityRemove)>();
-	FnSubClassChange = libserver.FindPatternSIMD("55 48 89 E5 41 57 41 56 41 55 41 54 53 48 81 EC C8 00 00 00 83 BE 38 04 00 00 01 0F 8E 47 02").RCast<decltype(FnSubClassChange)>();
+	FnSubClassChange = libserver.FindPatternSIMD("55 48 89 E5 41 57 41 56 49 89 FE 41 55 41 54 45 31 E4 53 48 81 EC 98 00 00 00 48 85 F6 74 ? 80 3E 00 49 89 F5 75 ? 48 81 C4 98 00 00 00 44 89 E6 4C 89 F7 5B 41 5C 41 5D 41 5E 41 5F 5D E9 ? ? ? ? 0F 1F 44 00 00 4C 8D BD 40 FF FF FF 48 89 F7 E8 ? ? ? ? 45 31 C0 4C 89 EA 31 F6 49 89 C4 4C 89 FF 89 C3 48 C7 85 48 FF FF FF 00 00 00 00 48 B8 00 00 00 00 80 00 00 C0 44 89 E1 48 89 85 40 FF FF FF E8 ? ? ? ? 31 F6 4C 89 FF E8 ? ? ? ? 48 8D 8D 48 FF FF FF F6 85 47 FF FF FF 40 75 ? F7 85 44 FF FF FF FF FF FF 3F 48 8D 0D F3 D1 C7 00").RCast<decltype(FnSubClassChange)>();
 	#endif
 	g_pGameRules = nullptr;
 
