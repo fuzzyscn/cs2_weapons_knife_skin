@@ -82,7 +82,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: alliedmodders/hl2sdk
-          ref: e6dc3f8a409a487728ffa0fe0ff901cbfd683b9f
+          ref: 9be8cba3442eb3335bffc7c20bb8f078b03a856b
           path: hl2sdk-cs2
 
       - name: Checkout Metamod:Source
