@@ -145,7 +145,7 @@ bool Skin::Load(PluginId id, ISmmAPI* ismm, char* error, size_t maxlen, bool lat
 	SH_ADD_HOOK(INetworkServerService, StartupServer, g_pNetworkServerService, SH_MEMBER(this, &Skin::StartupServer), true);
 	SH_ADD_HOOK(IServerGameDLL, GameFrame, g_pSource2Server, SH_MEMBER(this, &Skin::GameFrame), true);
 
-	gameeventmanager = static_cast<IGameEventManager2*>(CallVFunc<IToolGameEventAPI*, 98>(g_pSource2Server));
+	gameeventmanager = static_cast<IGameEventManager2*>(CallVFunc<IToolGameEventAPI*, 93>(g_pSource2Server));
 
 	ConVar_Register(FCVAR_GAMEDLL);
 
@@ -191,7 +191,7 @@ void Skin::StartupServer(const GameSessionConfiguration_t& config, ISource2World
 	FnUTIL_ClientPrintAll = (UTIL_ClientPrintAll_t)FindSignature("server.dll", "\x48\x89\x5C\x24\x08\x48\x89\x6C\x24\x10\x48\x89\x74\x24\x18\x57\x48\x81\xEC\x70\x01\x3F\x3F\x8B\xE9");
 	FnGiveNamedItem = (GiveNamedItem_t)FindSignature("server.dll", "\x48\x89\x5C\x24\x3F\x48\x89\x74\x24\x3F\x55\x57\x41\x3F\x41\x3F\x41\x3F\x48\x3F\x3F\x3F\x3F\x48\x3F\x3F\x3F\x3F\x3F\x3F\x4D\x3F\x3F\x48");
 	FnEntityRemove = (EntityRemove_t)FindSignature("server.dll", "\x48\x85\xD2\x0F\x3F\x3F\x3F\x3F\x3F\x57\x48\x3F\x3F\x3F\x48\x89\x3F\x3F\x3F\x48\x8B\xF9\x48\x8B");
-	FnSubClassChange = (SubClassChange_t)FindSignature("server.dll", "\x40\x57\x48\x83\xEC\x20\x48\x8B\xF9\x41\xB0\x01");
+	FnSubClassChange = (SubClassChange_t)FindSignature("server.dll", "\x48\x89\x6C\x24\x3F\x56\x48\x83\xEC\x3F\x48\x8B\xEA\x48\x8B\xF1\xE8\x3F\x3F\x3F\x3F\x84\xC0\x0F\x84");
 	#else
 	CModule libserver(g_pSource2Server);
 	FnUTIL_ClientPrint = libserver.FindPatternSIMD("55 48 89 E5 41 57 49 89 CF 41 56 49 89 D6 41 55 41 89 F5 41 54 4C 8D A5 A0 FE FF FF").RCast< decltype(FnUTIL_ClientPrint) >();
